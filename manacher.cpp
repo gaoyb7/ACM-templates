@@ -4,10 +4,10 @@ int rad[MAXN + MAXN + 3];
 void manacher(char *s)
 {
     int n = strlen(s), len = 0;
-    t[len++] = ¡¯^¡¯; t[len++] = ¡¯#¡¯;
+    t[len++] = '^'; t[len++] = '#';
     for (int i = 0; i < n; ++i) {
         t[len++] = s[i];
-        t[len++] = ¡¯#¡¯;
+        t[len++] = '#';
     }
     t[len] = 0;
     int i = 1, j = 1, k;
