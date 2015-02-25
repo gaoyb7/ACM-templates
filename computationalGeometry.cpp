@@ -10,7 +10,8 @@ typedef point vec;
 
 struct line {
     point s, t;
-    line(point a, point b): s(a), t(b) {}
+    double ang;
+    line(point a, point b): s(a), t(b), ang(arg(b - a)) {}
 };
 
 
@@ -127,7 +128,7 @@ point fermat(point A, point B, point C) {
 struct circle {
     point c; double r;
     circle(point c = 0, double r = 0): c(c), r(r) {}
-    point point(double a) {return c + polar(r, a);}
+    point pt(double a) {return c + polar(r, a);}
 };
 
 double adjust(double a) {
@@ -199,8 +200,8 @@ int outer_tangent(circle c1, circle c2,
     double d = dis(c1.c, c2.c);
     if (dcmp(d - fabs(c1.r - c2.r)) < 0) return 0;
     double alpha = arg(c2.c - c1.c), beta = acos((c1.r - c2.r) / d);
-    a1 = c1.point(alpha - beta); b1 = c2.point(alpha - beta);
-    a2 = c1.point(alpha + beta); b2 = c2.point(alpha + beta);
+    a1 = c1.pt(alpha - beta); b1 = c2.pt(alpha - beta);
+    a2 = c1.pt(alpha + beta); b2 = c2.pt(alpha + beta);
     return dcmp(beta) + 1;
 }
 
@@ -209,7 +210,7 @@ int inner_tangent(circle c1, circle c2,
     double d = dis(c1.c, c2.c);
     if (dcmp(d - (c1.r + c2.r)) < 0) return 0;
     double alpha = arg(c2.c - c1.c), beta = acos((c1.r + c2.r) / d);
-    a1 = c1.point(alpha - beta); b1 = c2.point(alpha - beta + pi);
-    a2 = c1.point(alpha + beta); b2 = c2.point(alpha + beta + pi);
+    a1 = c1.pt(alpha - beta); b1 = c2.pt(alpha - beta + pi);
+    a2 = c1.pt(alpha + beta); b2 = c2.pt(alpha + beta + pi);
     return dcmp(beta) + 1;
 }
