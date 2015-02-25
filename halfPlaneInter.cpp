@@ -1,4 +1,4 @@
-bool inhp(point p, line hp) {
+bool onleft(point p, line hp) {
     return dcmp(cross(hp.s, hp.t, p)) >= 0;
 }
 
@@ -12,12 +12,12 @@ void hpinter(line *q, int n, point *h, int &m) {
     sort(q, q + n, cmpang);
     for (int i = 1; i < n; ++i) {
         if (!dcmp(q[i].ang - q[i - 1].ang)) continue;
-        while (head < tail && !inhp(h[tail - 1], q[i])) --tail;
-        while (head < tail && !inhp(h[head], q[i])) ++head;
+        while (head < tail && !onleft(h[tail - 1], q[i])) --tail;
+        while (head < tail && !onleft(h[head], q[i])) ++head;
         q[++tail] = q[i];
         if (head < tail) inter(q[tail - 1], q[tail], h[tail - 1]);
     }
-    while (head < tail && !inhp(h[tail - 1], q[head])) --tail;
+    while (head < tail && !onleft(h[tail - 1], q[head])) --tail;
     if (head < tail) inter(q[tail], q[head], h[tail]);
     for (int i = head; i <= tail; ++i) h[m++] = h[i];
 }
