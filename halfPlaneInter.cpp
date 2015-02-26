@@ -1,5 +1,6 @@
 bool onleft(point p, line hp) {
-    return dcmp(cross(hp.s, hp.t, p)) > 0;          // >=
+    return dcmp(cross(hp.s, hp.t, p)) > 0;
+    //return dcmp(cross(hp.s, hp.t, p)) >= 0;
 }
 
 bool cmpang(line a, line b) {
