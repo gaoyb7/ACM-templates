@@ -5,19 +5,16 @@ struct Trie {
     int val[maxnode];
     int sz;
 
-    Trie()
-    {
+    Trie() {
         sz = 1;
         memset(ch[0], 0, sizeof(ch[0]));
     }
 
-    int idx(char c)
-    {
+    int idx(char c) {
         return c - 'a';
     }
 
-    void insert(char *s, int v)
-    {
+    void insert(char *s, int v) {
         int u = 0, n = strlen(s);
         for (int i = 0; i < n; ++i) {
             int c = idx(s[i]);

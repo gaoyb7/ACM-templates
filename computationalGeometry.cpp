@@ -11,6 +11,7 @@ typedef point vec;
 struct line {
     point s, t;
     double ang;
+    line() {}
     line(point a, point b): s(a), t(b), ang(arg(b - a)) {}
 };
 
@@ -167,7 +168,7 @@ int inter(circle a, circle b, point &p1, point &p2) {
     return dcmp(a.r + b.r - d) + 1;
 }
 
-bool inter(circle a, circle b, double &a1, double &a2) {
+int inter(circle a, circle b, double &a1, double &a2) {
     double d = dis(a.c, b.c);
     if (dcmp(d - (a.r + b.r)) > 0) return 0;                        // disjoint
     if (!dcmp(d) || dcmp(d - fabs(a.r - b.r)) < 0) return 0;        // include

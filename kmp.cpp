@@ -1,5 +1,4 @@
-void getFaile(char *p, int *f)
-{
+void getFaile(char *p, int *f) {
     int n = strlen(p);
     f[0] = f[1] = 0;
     for (int i = 1; i < n; ++i) {
@@ -9,8 +8,7 @@ void getFaile(char *p, int *f)
     }
 }
 
-int find(char *T, char *p, int *f)
-{
+int find(char *T, char *p, int *f) {
     int n = strlen(T), m = strlen(p);
     getFaile(p, f);
     int cnt = 0;

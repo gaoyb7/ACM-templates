@@ -6,14 +6,12 @@ const int maxnode = 11000;
 struct AhoCorasickAutomata {
     int ch[maxnode][26], val[maxnode], f[maxnode], last[maxnode], sz;
 
-    void clear()
-    {
+    void clear() {
         sz = 1;
         memset(ch[0], 0,sizeof(ch[0]));
     }
 
-    void insert(const char *s, int v)
-    {
+    void insert(const char *s, int v) {
         int u = 0;
         for (int i = 0; s[i]; ++i) {
             int c = s[i] - 'a';
@@ -27,8 +25,7 @@ struct AhoCorasickAutomata {
         val[u] = v;
     }
 
-    void getFail()
-    {
+    void getFail() {
         queue<int> que;
         f[0] = 0;
         for (int c = 0; c < 26; ++c) {
@@ -57,12 +54,10 @@ struct AhoCorasickAutomata {
         }
     }
 
-    void visit(int j)
-    {
+    void visit(int j) {
     }
 
-    void find(char *s)
-    {
+    void find(char *s) {
         int j = 0;
         for (int i = 0; s[i]; ++i) {
             int c = s[i] - 'a';

@@ -1,7 +1,6 @@
 int f[maxn], ex[maxn];
 
-void extend_kmp(const char* s, const char* t)
-{
+void extend_kmp(const char* s, const char* t) {
     int m = strlen(t), j = 0;
     while (j + 1 < m && t[j] == t[j+1]) ++j;
     f[0] = m; f[1] = j;
