@@ -196,22 +196,19 @@ int tangent(circle c, point p, double &a1, double &a2)
     return dcmp(d - c.r) + 1;
 }
 
-int outer_tangent(circle c1, circle c2, 
-        point &a1, point &b1, point &a2, point &b2) {
-    double d = dis(c1.c, c2.c);
-    if (dcmp(d - fabs(c1.r - c2.r)) < 0) return 0;
-    double alpha = arg(c2.c - c1.c), beta = acos((c1.r - c2.r) / d);
-    a1 = c1.pt(alpha - beta); b1 = c2.pt(alpha - beta);
-    a2 = c1.pt(alpha + beta); b2 = c2.pt(alpha + beta);
+int outer_tangent(circle a, circle b, double &a1, double &a2) {
+    double d = dis(a.c, b.c);
+    if (!dcmp(d) || dcmp(d - fabs(a.r - b.r)) < 0) return 0;
+    double alpha = arg(b.c - a.c), beta = acos((a.r - b.r) / d);
+    a1 = adjust(alpha - beta); a2 = adjust(alpha + beta);
     return dcmp(beta) + 1;
 }
 
-int inner_tangent(circle c1, circle c2,
-        point &a1, point &b1, point &a2, point &b2) {
-    double d = dis(c1.c, c2.c);
-    if (dcmp(d - (c1.r + c2.r)) < 0) return 0;
-    double alpha = arg(c2.c - c1.c), beta = acos((c1.r + c2.r) / d);
-    a1 = c1.pt(alpha - beta); b1 = c2.pt(alpha - beta + pi);
-    a2 = c1.pt(alpha + beta); b2 = c2.pt(alpha + beta + pi);
+int inner_tangent(circle a, circle b, double &a1, double &a2) {
+    double d = dis(a.c, b.c);
+    if (!dcmp(d) || dcmp(d - (a.r + b.r)) < 0) return 0;
+    double alpha = arg(b.c - a.c), beta = acos((a.r + b.r) / d);
+    a1 = adjust(alpha - beta); a2 = adjust(alpha + beta);
     return dcmp(beta) + 1;
 }
+
