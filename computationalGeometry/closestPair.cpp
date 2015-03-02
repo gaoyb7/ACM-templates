@@ -19,6 +19,6 @@ double mindis(point p[], int l, int r)
 }
 
 /*
-Initialize : sort (p, p + n, cmpx())
-Usage : mindis (0, n)
+sort(p, p + n, cmpx)
+mindis(p, 0, n)
 */
