@@ -9,7 +9,7 @@ bool cmpang(line a, line b) {
 
 void hpinter(line *L, int n, point *p, int &m) {
     int head = 0, tail = 0; m = 0;
-    sort(L, L + n, cmpang);
+    sort(L, L + n, cmpang);             //二分时可优化
     for (int i = 1; i < n; ++i) {
         if (!dcmp(L[i].ang - L[i - 1].ang)) continue;
         while (head < tail && !onleft(p[tail - 1], L[i])) --tail;

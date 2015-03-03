@@ -16,21 +16,21 @@ double maxdis(point *p, int n) {
 //mininal distance between convec hull
 double mindis(point *p1, int n, point *p2 , int m) {
     int i = 0, j = 0;
-    ans = inf;
-    for (int k = 1; k < n; ++k) if (cmpx(p1[k], p1[i])) i = k ;
-    for (int k = 1; k < m; ++k) if (cmpx(p2[j], p2[k])) j = k ;
-    for (int t = n + n; t--;) {
+    for (int k = 1; k < n; ++k) if (cmp(p1[k], p1[i])) i = k;
+    for (int k = 1; k < m; ++k) if (cmp(p2[j], p2[k])) j = k;
+    p1[n] = p1[0]; p2[m] = p2[0];
+    double ans = dis(p1[i], p2[j]);
+    for (int t = 0; t < n + m; ++t) {
         if (dcmp(cross(p1[i + 1] - p1[i] , p2[j + 1] - p2[j])) < 0) {
             ans = min(ans, distoseg(p2[j], line(p1[i], p1[i + 1])));
-            i = (i + 1) % n ;
+            i = (i + 1) % n;
         } else {
             ans = min(ans, distoseg(p1[i], line(p2[j], p2[j + 1])));
-            j = (j + 1) % m ;
+            j = (j + 1) % m;
         }
     }
     return ans;
 }
-
 
 //minimal rectangle
 void minrec(point *p, int n, double &A, double &P) {
