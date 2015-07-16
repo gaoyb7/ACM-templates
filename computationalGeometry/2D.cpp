@@ -211,4 +211,3 @@ int inner_tangent(circle a, circle b, double &a1, double &a2) {
     a1 = adjust(alpha - beta); a2 = adjust(alpha + beta);
     return dcmp(beta) + 1;
 }
-
