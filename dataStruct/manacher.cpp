@@ -1,5 +1,5 @@
-char s[MAXN], t[MAXN + MAXN + 3];
-int rad[MAXN + MAXN + 3];
+char s[maxn], t[maxn + maxn + 3];
+int rad[maxn + maxn + 3];
 
 void manacher(char *s) {
     int n = strlen(s), len = 0;
@@ -13,9 +13,8 @@ void manacher(char *s) {
     while (i < len) {
         while (t[i - j] == t[i + j]) ++j;
         rad[i] = j;
-        for (k = 1; k < j && rad[i - k] != rad[i] - k; ++k) {
+        for (k = 1; k < j && rad[i - k] != rad[i] - k; ++k)
             rad[i + k] = min(rad[i - k], rad[i] - k);
-        }
         i += k; j = max(j - k, 1);
     }
 }

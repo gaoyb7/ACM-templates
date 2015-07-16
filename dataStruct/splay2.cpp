@@ -6,6 +6,7 @@ int s[maxn], tot = 0;
 void pushup(int r) {
     sz[r] = sz[ch[r][0]] + sz[ch[r][1]] + 1;
 }
+
 void pushdown(int r) {
 }
 

@@ -62,8 +62,10 @@ struct AhoCorasickAutomata {
         for (int i = 0; s[i]; ++i) {
             int c = s[i] - 'a';
             j = ch[j][c];
-            if (val[j]) visit(j);
-            else if (last[j]) visit(last[j]);
+            if (val[j])
+                visit(j);
+            else if (last[j])
+                visit(last[j]);
         }
     }
 };

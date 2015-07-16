@@ -3,8 +3,8 @@ int store_wagner() {
     memset(del, 0, sizeof(del));
     for (int t = 1; t < n; ++t) {
         for (int i = 1; i <= n; ++i)
-            if (!del[i])
-                dist[i] = e[s][i];
+            if (!del[i]) dist[i] = e[s][i];
+
         memset(vis, 0, sizeof(vis));
         vis[s] = true;
         k = s;

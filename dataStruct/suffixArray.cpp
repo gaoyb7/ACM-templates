@@ -13,7 +13,6 @@ void build_sa(int s[], int n, int m) {
         int p = 0;
         for (int i = n - k; i < n; ++i) y[p++] = i;
         for (int i = 0; i < n; ++i) if (sa[i] >= k) y[p++] = sa[i] - k;
-
         for (int i = 0; i < m; ++i) c[i] = 0;
         for (int i = 0; i < n; ++i) ++c[x[y[i]]];
         for (int i = 1; i < m; ++i) c[i] += c[i - 1];
