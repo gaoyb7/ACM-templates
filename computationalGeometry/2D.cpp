@@ -12,7 +12,7 @@ struct line {
     point s, t;
     double ang;
     line() {}
-    line(point a, point b): s(a), t(b), ang(arg(b - a)) {}
+    line(point _s, point _t): s(_s), t(_t), ang(arg(_t - _s)) {}
 };
 
 
@@ -127,8 +127,9 @@ point fermat(point A, point B, point C) {
 
 //Circle
 struct circle {
-    point c; double r;
-    circle(point c = 0, double r = 0): c(c), r(r) {}
+    point c;
+    double r;
+    circle(point _c = 0, double _r = 0): c(_c), r(_r) {}
     point pt(double a) {return c + polar(r, a);}
 };
 
