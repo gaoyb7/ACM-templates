@@ -1,93 +1,82 @@
-#include <bits/stdc++.h>
-using namespace std;
+#define KEY ch[ch[root][1]][0]
+const int maxn = 100000;
+int ch[maxn][2], pre[maxn], sz[maxn], key[maxn], root, cnt;
+int s[maxn], tot = 0;
 
-struct Node {
-    Node *ch[2];
-    int s, v, flip;
-    int cmp(int k) const {
-        int d = k - ch[0] -> s;
-        if(d == 1) return -1;
-        return d <= 0 ? 0 : 1;
-    }
-    void maintain() {
-        s = 1 + ch[0] -> s + ch[1] -> s;
-    }
-    void pushdown() {
-        if(flip) {
-            flip = 0;
-            swap(ch[0], ch[1]);
-            ch[0] -> flip ^= 1;
-            ch[1] -> flip ^= 1;
+void pushup(int r) {
+    sz[r] = sz[ch[r][0]] + sz[ch[r][1]] + 1;
+}
+
+void pushdown(int r) {
+}
+
+void rotate(int x, int kind) {
+    int y = pre[x];
+    //pushdown(y);    
+    //pushdown(x);
+    ch[y][!kind] = ch[x][kind];
+    pre[ch[x][kind]] = y;
+    if (pre[y])
+        ch[pre[y]][ch[pre[y]][1] == y] = x;
+    pre[x] = pre[y];
+    ch[x][kind] = y;
+    pre[y] = x;
+    //pushup(y); 
+}
+
+void splay(int r, int goal) {
+    //pushdown(r); 
+    while (pre[r] != goal) {
+        if (pre[pre[r]] == goal)
+            rotate(r, ch[pre[r]][0] == r);
+        else {
+            int y = pre[r];
+            int kind = (ch[pre[y]][0] == y);
+            if (ch[y][kind] == r) {
+                rotate(r, !kind);
+                rotate(r, kind);
+            } else {
+                rotate(y, kind);
+                rotate(r, kind);
+            }
         }
     }
-};
-
-Node *null, *root;     //null = new Node(); null -> s = 0;
-
-void rotate(Node* &o, int d) {
-    Node* k = o -> ch[d ^ 1]; 
-    o -> ch[d ^ 1] = k -> ch[d]; k -> ch[d] = o;
-    o -> maintain(); k -> maintain(); 
-    o = k;
+    //pushup(r); 
+    if (goal == 0) root = r;
 }
 
-void splayKth(Node* &o, int k) {       //the Kth minimal
-    o -> pushdown();
-    int d = o -> cmp(k);
-    if(d == 1) k -= o -> ch[0] -> s + 1;
-    if(d != -1) {
-        Node* p = o -> ch[d];
-        p -> pushdown();
-        int d2 = p -> cmp(k);
-        int k2 = (d2 == 0 ? k : k - p -> ch[0] -> s - 1);
-        if(d2 != -1) {
-            splayKth(p -> ch[d2], k2);
-            if(d == d2) rotate(o, d ^ 1); 
-            else rotate(o -> ch[d], d);
-        }
-        rotate(o, d ^ 1);
+void select(int k, int goal) {              //splay(Kth(root, k), goal)
+    int tmp = 0, r = root;
+    while (true) {
+        //pushdown(r);
+        tmp = sz[ch[r][0]];
+        if (k == tmp + 1) break;
+        if (k <= tmp) r = ch[r][0];
+        else k -= tmp + 1, r = ch[r][1];
     }
+    splay(r, goal);
 }
 
-void prepare() {
-    null = new Node;
-    null->ch[0] = null->ch[1] = null;
-    null->s = 0;
-    root = null;
+void newnode(int &r, int x, int fa) {
+    r = tot ? s[tot--] : ++cnt;             //Memory reclamation
+    ch[r][0] = ch[r][1] = 0;
+    pre[r] = fa; key[r] = x; sz[r] = 1;
 }
 
-void clear(Node* &o) {
-    if (o == null) return;
-    clear(o -> ch[0]);
-    clear(o -> ch[1]);
-    delete(o);
+void erase(int r) {                         //Memory reclamation 
+    if (!r) return;
+    s[++tot] = r;
+    erase(ch[r][0]); erase(ch[r][1]);
 }
 
-Node* newnode(int val) {
-    Node *o = new Node;
-    o -> ch[0] = o -> ch[1] = null;
-    o -> s = 1;
-    o -> v = val;
-    o -> flip = 0;
-    return o;
+void build(int &r, int L, int R, int fa) {
 }
 
-void insert(int x) {
-    int rank = _insert(root, x);
-    splayKth(root, rank);
-}
-
-Node* merge(Node* left, Node* right) {
-    splayKth(left, left -> s);
-    left -> ch[1] = right;
-    left -> maintain();
-    return left;
-}
-
-void split(Node* o, int k, Node* &left, Node* &right) {     // k != 0
-    splayKth(o, k);
-    left = o;
-    right = o -> ch[1];
-    o -> ch[1] = null;
-    left -> maintain();
+void init() {
+    root = cnt = tot = 0;
+    newnode(root, -1, 0); 
+    newnode(ch[root][1], -1, root);
+    sz[root] = 2;
+    build(KEY, 1, n , ch[root][1]);
+    pushup(ch[root][1]); pushup(root);
 }
