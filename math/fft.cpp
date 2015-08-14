@@ -17,5 +17,5 @@ void fft(cp *a, int n, int f) {
 }
 
 // fft(a, n, 1); --- dft
-// fft(a, n, -1); for (i) a[i] /= n; --- idft
+// fft(a, n, -1); --- idft
 // n == 2 ^ k;
