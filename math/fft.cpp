@@ -11,4 +11,13 @@ void fft(cp *a, int n, int f) {
         }
         for (int i = 0; i < n; ++i) a[i] = b[i];
     }
+    /*
+    if (f == -1)
+        for (int i = 0; i < n; ++i)
+            a[i] /= n;
+    */
 }
+
+// fft(a, n, 1); --- dft
+// fft(a, n, -1); for (i) a[i] /= n; --- idft
+// n == 2 ^ k;
