@@ -45,8 +45,7 @@ void getFail() {
                 continue;
             }
             que.push(u);
-            int v = f[r];
-            f[u] = ch[v][c];
+            f[u] = ch[f[r]][c];
             last[u] = val[f[u]] ? f[u] : last[f[u]];
         }
     }
