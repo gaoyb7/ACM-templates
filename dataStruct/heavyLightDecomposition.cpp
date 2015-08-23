@@ -10,7 +10,7 @@ void dfs1(int u, int p, int d) {
 }
 
 void dfs2(int u, int p) {
-    top[u] = p; tree[u] = ++cnt; ori[cnt] = u;
+    top[u] = p; pos[u] = ++cnt; ori[cnt] = u;
     if (!son[u]) return;
     dfs2(son[u], p);
     for (size_t i = 0; i < e[u].size(); ++i) {
