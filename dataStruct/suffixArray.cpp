@@ -1,4 +1,4 @@
-int s[maxn], sa[maxn], t[maxn], t2[maxn], c[maxn], rank[maxn], height[maxn], n;
+int s[maxn], sa[maxn], t[maxn], t2[maxn], c[maxn], rk[maxn], h[maxn], n;
 
 //s[n] = 0; build_sa(s, n + 1, 27); getHeight(s, n);
 
@@ -28,11 +28,11 @@ void build_sa(int s[], int n, int m) {
 
 void getHeight(int s[], int n) {
     int k = 0;
-    for (int i = 0; i <= n; ++i) rank[sa[i]] = i;
+    for (int i = 0; i <= n; ++i) rk[sa[i]] = i;
     for (int i = 0; i < n; ++i) {
         if (k) --k;
-        int j = sa[rank[i] - 1];
+        int j = sa[rk[i] - 1];
         while (s[i + k] == s[j + k]) ++k;
-        height[rank[i]] = k;
+        h[rk[i]] = k;
     }
 }
