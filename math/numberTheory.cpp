@@ -45,6 +45,11 @@ int inv(int a, int p) {
     return pow_mod(a, p - 2, p);
 }
 
+int inv2(int x) {
+    if (x <= 1) return 1;
+    return 1LL * (mod - mod / x) * inv2(mod % x) % mod;
+}
+
 int _inv[maxn];
 void gen_inv() {
     _inv[1] = 1;

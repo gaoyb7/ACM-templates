@@ -1,24 +1,24 @@
 struct edge { int v, f, nxt; };
 const int maxn = 1000 + 10, maxm = 110000, inf = 0x3f3f3f3f;
-int g[maxn], dist[maxn], nume, n, src, sink;
+int g[maxn], dist[maxn], sz, n, S, T;
 queue<int> que;
 edge e[maxm];
 
 void init() {
     memset(g, 0, sizeof(g));
-    nume = 1;
+    sz = 1;
 }
 
 void addedge(int u, int v, int c) {
-    e[++nume] = (edge){v, c, g[u]}; g[u] = nume;
-    e[++nume] = (edge){u, 0, g[v]}; g[v] = nume;
+    e[++sz] = (edge){v, c, g[u]}; g[u] = sz;
+    e[++sz] = (edge){u, 0, g[v]}; g[v] = sz;
 }
 
 bool bfs() {
     memset(dist, -1, sizeof(dist));
     while (!que.empty()) que.pop();
-    dist[src] = 0;
-    que.push(src);
+    dist[S] = 0;
+    que.push(S);
     while (!que.empty()) {
         int u = que.front();
         que.pop();
@@ -28,11 +28,11 @@ bool bfs() {
                 dist[e[i].v] = dist[u] + 1;
             }
     }
-    return dist[sink] != -1;
+    return dist[T] != -1;
 }
 
 int dfs(int u, int delta) {
-    if (u == sink || delta == 0) return delta;
+    if (u == T || delta == 0) return delta;
     int ret = 0;
     for (int i = g[u]; delta && i; i = e[i].nxt)
         if (e[i].f && dist[e[i].v] == dist[u] + 1) {
@@ -48,6 +48,6 @@ int dfs(int u, int delta) {
 
 int maxflow() {
     int ret = 0;
-    while (bfs()) ret += dfs(src, inf);
+    while (bfs()) ret += dfs(S, inf);
     return ret;
 }
