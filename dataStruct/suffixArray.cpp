@@ -26,7 +26,7 @@ void build_sa(int s[], int n, int m) {
     }
 }
 
-void getHeight(int s[], int n) {
+void get_height(int s[], int n) {
     int k = 0;
     for (int i = 0; i <= n; ++i) rk[sa[i]] = i;
     for (int i = 0; i < n; ++i) {
