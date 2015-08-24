@@ -1,7 +1,7 @@
 struct edge { int v, f, nxt; };
 edge e[maxn * maxn];
 int g[maxn], h[maxn], vh[maxn];
-int psz, esz, src, sink;
+int psz, esz, S, T;
 
 void init(int n) {
     psz = 1; esz = n;
@@ -14,14 +14,14 @@ void addedge(int u, int v, int f) {
 }
 
 int aug(int u, int f) {
-    if (u == sink) return f;
+    if (u == T) return f;
     int d = f;
     for (int i = g[u]; i; i = e[i].nxt) {
         int v = e[i].v;
         if (e[i].f && h[u] == h[v] + 1) {
             int ff = aug(v, min(e[i].f, d));
             e[i].f -= ff; e[i ^ 1].f += ff; d -= ff;
-            if (h[src] == esz || !d) return f - d;
+            if (h[S] == esz || !d) return f - d;
         }
     }
     int w = d < f ? min(esz, h[u] + 2) : esz;
@@ -29,7 +29,7 @@ int aug(int u, int f) {
         if (e[i].f)
             w = min(w, h[e[i].v] + 1);
     ++vh[w];
-    --vh[h[u]] ? h[u] = w : h[src] = esz;
+    --vh[h[u]] ? h[u] = w : h[S] = esz;
     return f - d;
 }
 
@@ -38,7 +38,7 @@ int maxflow() {
     memset(vh, 0, sizeof(vh));
     vh[0] = esz;
     int ret = 0;
-    while (h[src] != esz)
-        ret += aug(src, inf);
+    while (h[S] != esz)
+        ret += aug(S, inf);
     return ret;
 }

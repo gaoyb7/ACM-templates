@@ -7,7 +7,7 @@ using namespace std;
 struct edge { int v, f, c, nxt; };
 edge e[maxm];
 int g[maxn], d[maxn];
-int psz, esz, src, sink, cost, dist;
+int psz, esz, S, T, cost, dist;
 bool vis[maxn];
 
 void init(int n) {
@@ -22,7 +22,7 @@ void addedge(int u, int v, int f, int c) {
 }
 
 int aug(int u, int f) {
-    if (u == sink) return cost += dist * f, f;
+    if (u == T) return cost += dist * f, f;
     int d = f;
     vis[u] = true;
     for (int i = g[u]; i; i = e[i].nxt)
@@ -38,7 +38,7 @@ bool modlabel() {
     deque<int> que;
     memset(vis, 0, sizeof(vis));
     memset(d, 0x3f, sizeof(d));
-    que.push_back(src); d[src] = 0; vis[src] = true;
+    que.push_back(S); d[S] = 0; vis[S] = true;
     while (!que.empty()) {
         int u = que.front(); que.pop_front(); vis[u] = false;
         for (int i = g[u]; i; i = e[i].nxt) {
@@ -55,11 +55,11 @@ bool modlabel() {
             }
         }
     }
-    if (d[sink] == inf) return false;
+    if (d[T] == inf) return false;
     for (int i = 0; i < esz; ++i)
         for (int j = g[i]; j; j = e[j].nxt)
             e[j].c += d[i] - d[e[j].v];
-    dist += d[sink];
+    dist += d[T];
     return true;
 }
 
@@ -69,7 +69,7 @@ int min_cost(int &flow) {
     while (modlabel()) {
         do {
             memset(vis, 0, sizeof(vis));
-            flow += (tmp = aug(src, inf));
+            flow += (tmp = aug(S, inf));
         } while (tmp);
     }
     return cost;
