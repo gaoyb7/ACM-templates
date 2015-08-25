@@ -16,7 +16,7 @@ void init(int n) {
     cost = dist = 0;
 }
 
-void addedge(int u, int v, int f, int c) {
+void add_edge(int u, int v, int f, int c) {
     e[++psz] = (edge){v, f, c, g[u]}; g[u] = psz;
     e[++psz] = (edge){u, 0, -c, g[v]}; g[v] = psz;
 }

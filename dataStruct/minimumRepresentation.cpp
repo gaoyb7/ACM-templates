@@ -1,4 +1,4 @@
-int minimumRepresentation(char *s, int n) {
+int minimum_representation(char *s, int n) {
     int i = 0, j = 1, k = 0, t;
     while (i < n && j < n && k < n) {
         t = s[(i + k) >= n ? i + k - n : i + k] 

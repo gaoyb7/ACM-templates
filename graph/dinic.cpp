@@ -9,7 +9,7 @@ void init() {
     sz = 1;
 }
 
-void addedge(int u, int v, int c) {
+void add_edge(int u, int v, int c) {
     e[++sz] = (edge){v, c, g[u]}; g[u] = sz;
     e[++sz] = (edge){u, 0, g[v]}; g[v] = sz;
 }
@@ -46,7 +46,7 @@ int dfs(int u, int delta) {
     return ret;
 }
 
-int maxflow() {
+int max_flow() {
     int ret = 0;
     while (bfs()) ret += dfs(S, inf);
     return ret;

@@ -1,4 +1,4 @@
-void getFaile(char *p, int *f) {
+void get_fail(char *p, int *f) {
     int n = strlen(p);
     f[0] = f[1] = 0;
     for (int i = 1; i < n; ++i) {

@@ -20,7 +20,7 @@ void insert(const char *s, int v) {
     val[u] = v;
 }
 
-void getFail() {
+void get_fail() {
     queue<int> que;
     f[0] = 0;
     for (int c = 0; c < 26; ++c) {

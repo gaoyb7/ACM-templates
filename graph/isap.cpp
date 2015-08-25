@@ -8,7 +8,7 @@ void init(int n) {
     memset(g, 0, sizeof(g));
 }
 
-void addedge(int u, int v, int f) {
+void adde_dge(int u, int v, int f) {
     e[++psz] = (edge){v, f, g[u]}; g[u] = psz;
     e[++psz] = (edge){u, 0, g[v]}; g[v] = psz;
 }
@@ -33,7 +33,7 @@ int aug(int u, int f) {
     return f - d;
 }
 
-int maxflow() {
+int max_flow() {
     memset(h, 0, sizeof(h));
     memset(vh, 0, sizeof(vh));
     vh[0] = esz;
