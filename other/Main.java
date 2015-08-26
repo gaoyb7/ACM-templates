@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner cin = new Scanner(new BufferedInputStream(System.in));
         int n = cin.nextInt();
+        //while (cin.hasNext())
         //String s1 = cin.next();
         //String s2 = cin.nextLine();
         //double t1 = cin.nextDouble();
@@ -33,5 +34,9 @@ public class Main {
         a = a.shiftLeft(1); a = a.shiftRight(1);
         if (a.compareTo(b) < 0)
             System.out.println("a < b");
+    }
+
+    public int sum(int a, int b) {
+        return a + b;
     }
 }
