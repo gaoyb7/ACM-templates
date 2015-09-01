@@ -19,7 +19,7 @@ struct DLX
         memset(H, -1, sizeof(H));
     }
 
-    void Link(int r, int c) {
+    void link(int r, int c) {
         ++S[Col[++size] = c];
         Row[size] = r;
         D[size] = D[c];
@@ -59,7 +59,7 @@ struct DLX
         return ret;
     }
 
-    void Dance(int d) {
+    void dance(int d) {
         if (d + f() >= res) return;
         if (R[0] == 0) {
             res = min(res, d);
@@ -71,9 +71,9 @@ struct DLX
                 c = i;
         for (int i = D[c]; i != c; i = D[i]) {
             remove(i);
-            for (int j = R[i]; j != i; j = R[j])remove(j);
-            Dance(d + 1);
-            for (int j = L[i]; j != i; j = L[j])resume(j);
+            for (int j = R[i]; j != i; j = R[j]) remove(j);
+            dance(d + 1);
+            for (int j = L[i]; j != i; j = L[j]) resume(j);
             resume(i);
         }
     }
