@@ -139,8 +139,7 @@ double adjust(double a) {
     return a;
 }
 
-int inter(circle c, line ln, point &p1, point &p2)
-{
+int inter(circle c, line ln, point &p1, point &p2) {
     point p = proj(c.c, ln);
     double d = dis(p, c.c);
     if (dcmp(d - c.r) > 0) return 0;
@@ -188,8 +187,7 @@ int tangent(circle c, point p, point &p1, point &p2) {
     return dcmp(d - c.r) + 1;
 }
 
-int tangent(circle c, point p, double &a1, double &a2)
-{
+int tangent(circle c, point p, double &a1, double &a2) {
     double d = dis(p, c.c);
     if (dcmp(d - c.r) < 0) return 0;
     double alpha = arg(p - c.c), beta = acos(c.r / d);

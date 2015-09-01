@@ -20,7 +20,7 @@ struct DLX {
         memset(S, 0, sizeof(S));
     }
 
-    void addRow(int r, vector<int> c1) {
+    void add_row(int r, vector<int> c1) {
         int first = sz;
         for (size_t i = 0; i < c1.size(); i++) {
             int c = c1[i];
