@@ -67,7 +67,10 @@ void work() {
         }
         spfa();
     }
-    printf("%d\n", dp[0][limit - 1]);
+    int ret = inf;
+    for (int i = 0; i <= n + m; ++i)
+        ret = min(ret, dp[i][limit - 1]);
+    printf("%d\n", ret);
 }
 
 int main() {
