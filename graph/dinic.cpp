@@ -31,12 +31,12 @@ bool bfs() {
     return dist[T] != -1;
 }
 
-int dfs(int u, int delta) {
+int aug(int u, int delta) {
     if (u == T || delta == 0) return delta;
     int ret = 0;
     for (int i = g[u]; delta && i; i = e[i].nxt)
         if (e[i].f && dist[e[i].v] == dist[u] + 1) {
-            int dd = dfs(e[i].v, min(e[i].f, delta));
+            int dd = aug(e[i].v, min(e[i].f, delta));
             e[i].f -= dd;
             e[i ^ 1].f += dd;
             delta -= dd;
@@ -48,6 +48,6 @@ int dfs(int u, int delta) {
 
 int max_flow() {
     int ret = 0;
-    while (bfs()) ret += dfs(S, inf);
+    while (bfs()) ret += aug(S, inf);
     return ret;
 }
