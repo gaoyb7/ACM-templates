@@ -1,13 +1,7 @@
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
-#include <deque>
-using namespace std;
-
 struct edge { int v, f, c, nxt; } e[maxe];
 int g[maxn], d[maxn];
-int esz, vsz, S, T, cost, dist;
 bool vis[maxn];
+int esz, vsz, S, T, cost, dist;
 
 void init(int n) {
     esz = 1; vsz = n;
