@@ -1,6 +1,7 @@
 struct edge { int v, f, nxt; } e[maxe];
-int g[maxn], dist[maxn], sz, n, S, T;
+int g[maxn], dist[maxn];
 queue<int> que;
+int n, sz, S, T;
 
 void init() {
     memset(g, 0, sizeof(g));
