@@ -1,8 +1,6 @@
-struct edge { int v, f, nxt; };
-const int maxn = 1000 + 10, maxm = 110000, inf = 0x3f3f3f3f;
+struct edge { int v, f, nxt; } e[maxe];
 int g[maxn], dist[maxn], sz, n, S, T;
 queue<int> que;
-edge e[maxm];
 
 void init() {
     memset(g, 0, sizeof(g));

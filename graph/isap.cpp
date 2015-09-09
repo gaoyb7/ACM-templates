@@ -1,5 +1,4 @@
-struct edge { int v, f, nxt; };
-edge e[maxn * maxn];
+struct edge { int v, f, nxt; } e[maxe];
 int g[maxn], h[maxn], vh[maxn];
 int esz, vsz, S, T;
 

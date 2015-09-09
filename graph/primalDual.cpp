@@ -4,21 +4,20 @@
 #include <deque>
 using namespace std;
 
-struct edge { int v, f, c, nxt; };
-edge e[maxm];
+struct edge { int v, f, c, nxt; } e[maxe];
 int g[maxn], d[maxn];
-int psz, esz, S, T, cost, dist;
+int esz, vsz, S, T, cost, dist;
 bool vis[maxn];
 
 void init(int n) {
-    psz = 1; esz = n;
+    esz = 1; vsz = n;
     memset(g, 0, sizeof(g));
     cost = dist = 0;
 }
 
 void add_edge(int u, int v, int f, int c) {
-    e[++psz] = (edge){v, f, c, g[u]}; g[u] = psz;
-    e[++psz] = (edge){u, 0, -c, g[v]}; g[v] = psz;
+    e[++esz] = (edge){v, f, c, g[u]}; g[u] = esz;
+    e[++esz] = (edge){u, 0, -c, g[v]}; g[v] = esz;
 }
 
 int aug(int u, int f) {
@@ -56,7 +55,7 @@ bool modlabel() {
         }
     }
     if (d[T] == inf) return false;
-    for (int i = 0; i < esz; ++i)
+    for (int i = 0; i < vsz; ++i)
         for (int j = g[i]; j; j = e[j].nxt)
             e[j].c += d[i] - d[e[j].v];
     dist += d[T];
