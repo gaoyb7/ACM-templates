@@ -47,7 +47,7 @@ int aug(int &u) {
         }
     }
     if (--gap[dis[u]]) {
-        int d = n;
+        int d = vsz;
         for (int i = g[u]; i; i = e[i].nxt) {
             int v = e[i].v;
             if (e[i].f && dis[v] < d) d = dis[v], cur[u] = i;
@@ -55,7 +55,7 @@ int aug(int &u) {
         ++gap[dis[u] = d + 1];
         if (u != S) u = pre[u];
     } else {
-        dis[S] = n;
+        dis[S] = vsz;
     }
     return 0;
 }
@@ -65,6 +65,6 @@ int max_flow() {
     bfs();
     memcpy(cur, g, sizeof(cur));
     int u = S;
-    while (dis[S] < n) ret += aug(u);
+    while (dis[S] < vsz) ret += aug(u);
     return ret;
 }
