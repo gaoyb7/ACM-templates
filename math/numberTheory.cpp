@@ -100,14 +100,24 @@ LL log_mod(LL a, LL b, LL mod) {
 
 // x == r[i] (mod m[i])
 LL china(LL r[], LL m[], int n) {
-    LL r0 = r[0], m0 = m[0];
-    for (int i = 1; i < n; ++i) {
-        LL r1 = r[i], m1 = m[i], g, x0, y0;
-        extend_gcd(m0, m1, g, x0, y0);
-        if ((r1 - r0) % g) return -1;
-        LL r2 = (r1 - r0) / g * x0 % m1, m2 = m0;
-        m0 = m0 / g * m1;
-        r0 = (r0 + r2 * m2 % m0) % m0;
+    LL y, d, M = 1, ret = 0;
+    for (int i = 0; i < n; ++i) M *= m[i];
+    for (int i = 0; i < n; ++i) {
+        LL w = M / m[i];
+        extend_gcd(m[i], w, d, d, y);
+        ret = (ret + y * w * r[i]) % M;
     }
-    return r0;
+    return (ret + M) % M;
+}
+
+
+// lucas: comb(n, m) % mod
+LL comb(LL n, LL m, LL mod) {
+    if (n < m) return 0;
+    return (frac[n] * inv[m] % mod) * inv[n - m] % mod;
+}
+
+LL lucas(LL n, LL m, LL mod) {
+    if (m == 0) return 1;
+    return lucas(n / mod, m / mod, mod) * comb(n % mod, m % mod, mod) % mod;
 }
