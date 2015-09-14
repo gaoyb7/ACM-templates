@@ -1,7 +1,7 @@
 const int maxnode = 10000;
 int ch[maxnode][26], val[maxnode], sz;
 
-clear() {
+void clear() {
     sz = 1;
     memset(ch[0], 0, sizeof(ch[0]));
 }
