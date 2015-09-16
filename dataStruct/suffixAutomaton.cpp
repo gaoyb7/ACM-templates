@@ -1,4 +1,5 @@
 int l[maxn], lp[maxn], fa[maxn], ch[maxn][26], cnt, len, last;
+int b[maxn], t[maxn];
 
 void init() {
     cnt = last = 1;
@@ -30,8 +31,7 @@ void extend(int c) {
 }
 
 void topsort() {
-    static int b[maxn], t[maxn];
-    memset(b, 0, sizeof(b));
+    for (int i = 0; i <= len; ++i) b[i] = 0;
     for (int i = 1; i <= cnt; ++i) ++b[l[i]];
     for (int i = 1; i <= len; ++i) b[i] += b[i - 1];
     for (int i = 1; i <= cnt; ++i) t[b[l[i]]--] = i;
