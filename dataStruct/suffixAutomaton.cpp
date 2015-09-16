@@ -28,3 +28,15 @@ void extend(int c) {
         }
     }
 }
+
+void topsort() {
+    static int b[maxn], t[maxn];
+    memset(b, 0, sizeof(b));
+    for (int i = 1; i <= cnt; ++i) ++b[l[i]];
+    for (int i = 1; i <= n; ++i) b[i] += b[i - 1];
+    for (int i = 1; i <= cnt; ++i) t[b[l[i]]--] = i;
+    for (int i = cnt; i; --i) {
+        int u = t[i];
+        /* code */
+    }
+}
