@@ -105,6 +105,7 @@ LL china(LL r[], LL m[], int n) {
     for (int i = 0; i < n; ++i) {
         LL w = M / m[i];
         extend_gcd(m[i], w, d, d, y);
+        // y = pow_mod(w, m[i] - 2, m[i]);
         ret = (ret + y * w * r[i]) % M;
     }
     return (ret + M) % M;
