@@ -2,9 +2,9 @@ struct Edge { int u, v; };
 stack<Edge> S;
 
 int dfs(int u, int fa) {
-    int lowu = pre[u] = ++dfs_clock;
+    int lowu = pre[u] = ++clk;
     int child = 0;
-    for (int i = 0; i < e[u].size(); ++i) {
+    for (size_t i = 0; i < e[u].size(); ++i) {
         int v = e[u][i];
         Edge eg = (Edge){u, v};
         if (!pre[v]) {
@@ -41,7 +41,7 @@ void find_bcc(int n) {
     memset(pre, 0, sizeof(pre));
     memset(iscut, 0, sizeof(iscut));
     memset(bccno, 0, sizeof(bccno));
-    dfs_clock = bcc_cnt = 0;
+    clk = bcc_cnt = 0;
     for (int i = 0; i < n; ++i)
         if (!pre[i])
             dfs(i, -1);
