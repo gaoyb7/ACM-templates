@@ -1,5 +1,5 @@
 int dfs(int u, int fa) {
-    int lowu = pre[u] = ++cnt;
+    int lowu = pre[u] = ++clk;
     int child = 0;
     for (size_t i = 0; i < e[u].size(); ++i) {
         int v = e[u][i];
