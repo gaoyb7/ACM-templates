@@ -1,5 +1,3 @@
-const int maxn = 500 + 10;
-
 void gauss(double a[][maxn], int n) {
     for (int i = 0; i < n; ++i) {
         int r = i;
