@@ -4,7 +4,7 @@ double area(circle c, point a, point b) {
     if (zero(a) || zero(b)) return 0;
     double s1 = 0.5 * arg(b / a) * sqr(c.r);
     double s2 = 0.5 * cross(a, b);
-    return fabs (s1) < fabs (s2) ? s1 : s2;
+    return fabs(s1) < fabs(s2) ? s1 : s2;
 }
 
 double crossarea(circle c, point *p, int n) {
