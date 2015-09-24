@@ -13,7 +13,7 @@ bool dfs(int u) {
     return true;
 }
 
-void init(int n) {
+void init() {
     for (int i = 0; i < 2 * n; ++i) e[i].clear();
     memset(vis, 0, sizeof(vis));
 }
