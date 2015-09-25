@@ -9,6 +9,7 @@ int dfs(int u, int fa) {
             lowu = min(lowu, lowv);
             if (lowv >= pre[u])
                 cut[u] = true;
+            //if (lowv > pre[u])
         } else if (pre[v] < pre[u] && v != fa) {
             lowu = min(lowu, pre[v]);
         }

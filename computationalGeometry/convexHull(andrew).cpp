@@ -1,4 +1,4 @@
-void gramham(point *p, int n, point *h, int &m) {
+void andrew(point *p, int n, point *h, int &m) {
     m = 0;
     for (int i = 0; i < n; ++i) {
         while (m > 1 && dcmp(cross(h[m - 2], h[m - 1], p[i])) <= 0) --m;
