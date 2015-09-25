@@ -1,4 +1,3 @@
-const int maxnode = 11000;
 int ch[maxnode][26], val[maxnode], f[maxnode], last[maxnode], sz;
 
 void clear() {

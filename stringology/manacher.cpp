@@ -20,7 +20,7 @@ void manacher(char *s) {
 }
 
 /*
-s: abaaba
-t: ^ # a # b # a # a # b # a # \0
+s:   abaaba
+t:   ^ # a # b # a # a # b # a #
 rad: 0 1 2 1 4 1 2 7 2 1 4 1 2 1
  */

@@ -35,8 +35,4 @@ void topsort() {
     for (int i = 1; i <= cnt; ++i) ++b[l[i]];
     for (int i = 1; i <= len; ++i) b[i] += b[i - 1];
     for (int i = 1; i <= cnt; ++i) t[b[l[i]]--] = i;
-    for (int i = cnt; i; --i) {
-        int u = t[i];
-        /* code */
-    }
 }
