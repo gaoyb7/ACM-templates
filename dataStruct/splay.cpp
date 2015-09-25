@@ -1,5 +1,4 @@
 #define KEY ch[ch[root][1]][0]
-const int maxn = 100000;
 int ch[maxn][2], pre[maxn], sz[maxn], key[maxn], root, cnt;
 int s[maxn], tot = 0;
 
