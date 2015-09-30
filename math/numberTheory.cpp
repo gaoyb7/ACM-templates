@@ -81,6 +81,30 @@ void phi_table() {
             }
 }
 
+// mobius
+int miu[maxn];
+void mobius(int n) {
+    memset(vis, 0, sizeof(vis));
+    miu[1] = 1;
+    int tot = 0;
+    for (int i = 2; i <= n; ++i) {
+        if (!vis[i]) {
+            prime[tot++] = i;
+            miu[i] = -1;
+        }
+        for (int j = 0; j < tot; ++j) {
+            if (i * prime[j] > n) break;
+            vis[i * prime[j]] = true;
+            if (i % prime[j] == 0) {
+                miu[i * prime[j]] = 0;
+                break;
+            } else {
+                miu[i * prime[j]] = -miu[i];
+            }
+        }
+    }
+}
+
 // a ^ x % mod == b
 LL log_mod(LL a, LL b, LL mod) {
     int n = (int)sqrt(mod + 0.5);
