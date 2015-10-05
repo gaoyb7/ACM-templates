@@ -1,12 +1,12 @@
 double f(double x);
 
-double simpson(double a, double b) {
-    return (f(a) + f(b) + 4.0 * f((a + b) / 2)) * (b - a) / 6;
+double simpson(double l, double r) {
+    return (f(l) + f(r) + 4.0 * f((l + r) / 2)) * (r - l) / 6;
 }
 
 double asr(double a, double b) {
-    double m = (a + b) / 2;
-    double s = simpson(a, b), s1 = simpson(a, m), s2 = simpson(m, b);
+    double m = (l + r) / 2;
+    double s = simpson(l, r), s1 = simpson(l, m), s2 = simpson(m, r);
     if (!dcmp(s1 + s2 - s)) return s;
-    return asr(a, m) + asr(m, b);
+    return asr(l, m) + asr(m, r);
 }

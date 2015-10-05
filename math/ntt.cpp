@@ -13,8 +13,7 @@ void rader(LL a[], int n) {
 void ntt(LL a[], int n, int t) {
     rader(a, n);
     for (int h = 2; h <= n; h <<= 1) {
-        // g is primitive root
-        LL wn = pow_mod(g, (mod - 1) / h);
+        LL wn = pow_mod(g, (mod - 1) / h, mod);
         if (t == -1) wn = pow_mod(wn, mod - 2);
         for (int j = 0; j < n; j += h) {
             LL w = 1;
@@ -28,12 +27,12 @@ void ntt(LL a[], int n, int t) {
         }
     }
     if (t == -1) {
-        LL r = pow_mod(n, mod - 2);
+        LL r = pow_mod(n, mod - 2, mod);
         for (int i = 0; i < n; ++i)
             a[i] = a[i] * r % mod;
     }
 }
 
-// n = 2^k
-// mod = k * 2^p + 1
+// n == 2 ^ k
+// (mod - 1) % n == 0
 // g is primitive root of mod

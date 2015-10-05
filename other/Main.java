@@ -4,6 +4,15 @@ import java.util.*;
 import java.text.*;
 
 public class Main {
+
+    final static int maxn = 100000;
+
+    public static int n;
+    public static int a[] = new int[maxn];
+
+    public static void func1() {}
+    public static boolean ok() {}
+
     public static void main(String[] args) {
         Scanner cin = new Scanner(new BufferedInputStream(System.in));
         int n = cin.nextInt();
