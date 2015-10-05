@@ -1,16 +1,3 @@
-const LL mod = 479 * (1 << 21) + 1;
-int g;
-
-LL pow_mod(LL a, LL n) {
-    LL ret = 1;
-    while (n) {
-        if (n & 1) ret = ret * a % mod;
-        a = a * a % mod;
-        n >>= 1;
-    }
-    return ret;
-}
-
 void rader(LL a[], int n) {
     for (int i = 1, j = n >> 1; i < n - 1; ++i) {
         if (i < j) swap(a[i], a[j]);
@@ -46,3 +33,7 @@ void ntt(LL a[], int n, int t) {
             a[i] = a[i] * r % mod;
     }
 }
+
+// n = 2^k
+// mod = k * 2^p + 1
+// g is primitive root of mod
