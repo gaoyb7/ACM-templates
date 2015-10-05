@@ -83,3 +83,164 @@ int main() {
     }
 }
 
+
+// zoj3901
+#include <bits/stdc++.h>
+using namespace std;
+
+const int maxn = 100000 + 10;
+typedef pair<int, int> Pii;
+vector<int> e[maxn], q[maxn];
+int w[maxn], sz[maxn], f[maxn], d[maxn], ans[maxn];
+bool vis[maxn];
+Pii ql[maxn];
+int n, m, root, size, clk;
+
+struct BIT {
+    int f[maxn], cnt[maxn], sum[maxn];
+    int mx;
+    void init() {
+        cnt[0] = clk;
+        f[0] = mx = 0;
+    }
+    void add(int u) {
+        if (cnt[u] != clk) cnt[u] = clk, f[u] = 0;
+        ++f[u];
+    }
+    int query(int u) {
+        return sum[min(u, mx)];
+    }
+    void getsum() {
+        mx = 0;
+        sum[0] = f[0];
+        for (int i = 1; i <= n; ++i)
+            if (cnt[i] == clk)
+                sum[i] = sum[i - 1] + f[i], mx = i;
+            else
+                break;
+    }
+} len[3];
+
+void getroot(int u, int fa) {
+    sz[u] = 1; f[u] = 0;
+    for (size_t i = 0; i < e[u].size(); ++i) {
+        int v = e[u][i];
+        if (v == fa || vis[v]) continue;
+        getroot(v, u);
+        sz[u] += sz[v];
+        f[u] = max(f[u], sz[v]);
+    }
+    f[u] = max(f[u], size - sz[u]);
+    if (f[u] < f[root]) root = u;
+}
+
+void init() {
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; ++i) {
+        scanf("%d", w + i);
+        e[i].clear();
+        q[i].clear();
+    }
+    for (int i = 1; i < n; ++i) {
+        int u, v; scanf("%d%d", &u, &v);
+        e[u].push_back(v);
+        e[v].push_back(u);
+    }
+    for (int i = 1; i <= m; ++i) {
+        int u, d;
+        scanf("%d%d", &u, &d);
+        ql[i] = make_pair(u, d);
+        q[u].push_back(i);
+        ans[i] = 0;
+    }
+}
+
+void calc(int u, int fa, int cnt, bool mor, bool les, bool eq) {
+    for (size_t i = 0; i < q[u].size(); ++i) {
+        int id = q[u][i];
+        if (cnt <= ql[id].second) {
+            if (mor)
+                ans[id] += len[0].query(ql[id].second - cnt);
+            if (les)
+                ans[id] += len[1].query(ql[id].second - cnt);
+            if (eq)
+                ans[id] -= len[2].query(ql[id].second - cnt);
+        }
+    }
+    for (size_t i = 0; i < e[u].size(); ++i) {
+        int v = e[u][i];
+        if (v == fa || vis[v]) continue;
+        calc(v, u, cnt + 1, 
+                mor && w[v] >= w[u], les && w[v] <= w[u], eq && w[v] == w[u]);
+    }
+}
+
+void dfs(int u, int fa, int cnt, bool les, bool mor, bool eq) {
+    if (les) len[0].add(cnt);
+    if (mor) len[1].add(cnt);
+    if (eq) len[2].add(cnt);
+    for (size_t i = 0; i < e[u].size(); ++i) {
+        int v = e[u][i];
+        if (v == fa || vis[v]) continue;
+        dfs(v, u, cnt + 1, 
+                les && w[v] <= w[u], mor && w[v] >= w[u], eq && w[v] == w[u]);
+    }
+}
+
+void work(int u) {
+    vis[u] = true;
+    ++clk;
+    for (int i = 0; i < 3; ++i)
+        len[i].init(), len[i].add(0), len[i].getsum();
+    for (size_t i = 0; i < e[u].size(); ++i) {
+        int v = e[u][i];
+        if (vis[v]) continue;
+        calc(v, u, 1, w[v] >= w[u], w[v] <= w[u], w[v] == w[u]);
+        dfs(v, u, 1, w[v] <= w[u], w[v] >= w[u], w[v] == w[u]);
+        for (int j = 0; j < 3; ++j) len[j].getsum();
+    }
+
+    for (size_t i = 0; i < q[u].size(); ++i) {
+        int id = q[u][i];
+        ans[id] += len[0].query(ql[id].second);
+        ans[id] += len[1].query(ql[id].second);
+        ans[id] -= len[2].query(ql[id].second);
+    }
+
+    ++clk;
+    for (int i = 0; i < 3; ++i)
+        len[i].init(), len[i].getsum();
+    for (int i = (int)e[u].size() - 1; i >= 0; --i) {
+        int v = e[u][i];
+        if (vis[v]) continue;
+        calc(v, u, 1, w[v] >= w[u], w[v] <= w[u], w[v] == w[u]);
+        dfs(v, u, 1, w[v] <= w[u], w[v] >= w[u], w[v] == w[u]);
+        for (int j = 0; j < 3; ++j) len[j].getsum();
+    }
+
+    for (size_t i = 0; i < e[u].size(); ++i) {
+        int v = e[u][i];
+        if (vis[v]) continue;
+        f[0] = size = sz[v];
+        getroot(v, root = 0);
+        work(root);
+    }
+}
+
+void solve() {
+    for (int i = 1; i <= n; ++i) vis[i] = false;
+    f[0] = size = n;
+    getroot(1, root = 0);
+    work(root);
+    for (int i = 1; i <= m; ++i)
+        printf("%d\n", ans[i]);
+}
+
+int main() {
+    int tt;
+    scanf("%d", &tt);
+    while (tt--) {
+        init();
+        solve();
+    }
+}
