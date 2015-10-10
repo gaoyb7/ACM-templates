@@ -1,9 +1,8 @@
-struct DLX
-{
-    int m, size;
-    int U[maxnode], D[maxnode], R[maxnode], L[maxnode], Row[maxnode], Col[maxnode];
-    int H[MaxN], S[MaxM];
-    int ands, ans[MaxN];
+struct DLX {
+    int m, sz, res;
+    int U[maxnode], D[maxnode], R[maxnode], L[maxnode];
+	int row[maxnode], col[maxnode];
+    int H[maxrow], S[maxcol];
     bool v[maxnode];
 
     void init(int _m) {  // columns
@@ -15,23 +14,24 @@ struct DLX
             R[i] = i + 1;
         }
         R[m] = 0; L[0] = m;
-        size = m;
+        sz = m;
+		res = inf;
         memset(H, -1, sizeof(H));
     }
 
     void link(int r, int c) {
-        ++S[Col[++size] = c];
-        Row[size] = r;
-        D[size] = D[c];
-        U[D[c]] = size;
-        U[size] = c;
-        D[c] = size;
-        if (H[r] < 0) H[r] = L[size] = R[size] = size;
+        ++S[col[++sz] = c];
+        row[sz] = r;
+        D[sz] = D[c];
+        U[D[c]] = sz;
+        U[sz] = c;
+        D[c] = sz;
+        if (H[r] < 0) H[r] = L[sz] = R[sz] = sz;
         else {
-            R[size] = R[H[r]];
-            L[R[H[r]]] = size;
-            L[size] = H[r];
-            R[H[r]] = size;
+            R[sz] = R[H[r]];
+            L[R[H[r]]] = sz;
+            L[sz] = H[r];
+            R[H[r]] = sz;
         }
     }
 
@@ -54,15 +54,15 @@ struct DLX
                 v[c] = false;
                 for (int i = D[c]; i != c; i = D[i])
                     for (int j = R[i]; j != i; j = R[j])
-                        v[Col[j]] = false;
+                        v[col[j]] = false;
             }
         return ret;
     }
 
-    void dance(int d) {
-        if (d + f() >= res) return;
+    void dance(int dep) {
+        if (dep + f() >= res) return;
         if (R[0] == 0) {
-            res = min(res, d);
+            res = min(res, dep);
             return;
         }
         int c = R[0];
@@ -72,7 +72,7 @@ struct DLX
         for (int i = D[c]; i != c; i = D[i]) {
             remove(i);
             for (int j = R[i]; j != i; j = R[j]) remove(j);
-            dance(d + 1);
+            dance(dep + 1);
             for (int j = L[i]; j != i; j = L[j]) resume(j);
             resume(i);
         }
