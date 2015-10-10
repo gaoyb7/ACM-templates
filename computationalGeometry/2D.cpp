@@ -18,28 +18,28 @@ struct line {
 
 
 //Basic
-int dcmp(double x) {return x < -eps ? -1 : x > eps;}
-bool zero(vec v) {return !dcmp(v.X) && !dcmp(v.Y);}
+int dcmp(double x) { return x < -eps ? -1 : x > eps; }
+bool zero(vec v) { return !dcmp(v.X) && !dcmp(v.Y); }
+double sqr(double x) { return x * x; }
+double dis(point a, point b) { return abs(a - b); }
 
-double sqr(double x) {return x * x;}
-double dis(point a, point b) {return abs(a - b);}
+double cross(vec a, vec b) { return a.X * b.Y - a.Y * b.X; }
+double cross(point a, point b, point c) { return cross(b - a, c - a); }
+double dot(vec a, vec b) { return a.X * b.X + a.Y * b.Y; }
+double dot(point a, point b, point c) { return dot(b - a, c - a); }
 
-double cross(vec a, vec b) {return a.X * b.Y - a.Y * b.X;}
-double cross(point a, point b, point c) {return cross(b - a, c - a);}
-double dot(vec a, vec b) {return a.X * b.X + a.Y * b.Y;}
-double dot(point a, point b, point c) {return dot(b - a, c - a);}
+vec dir(line ln) { return ln.t - ln.s; }
+vec normal(vec v) { return vec(-v.Y, v.X); }
+vec unit(vec v) { return v / abs(v); }
 
-vec dir(line ln) {return ln.t - ln.s;}
-vec normal(vec v) {return vec(-v.Y, v.X);}
-vec unit(vec v) {return v / abs(v);}
+vec proj(vec v, vec n) { return n * dot(v, n) / norm(n); }
+point proj(point p, line ln) { return ln.s + proj(p - ln.s, dir(ln)); }
+vec reflect(vec v, vec n) { return proj(v, n) * 2.0 - v; }
+point reflect(point p, line ln) { return ln.s + reflect(p - ln.s, dir(ln)); }
 
-vec proj(vec v, vec n) {return n * dot(v, n) / norm(n);}
-point proj(point p, line ln) {return ln.s + proj(p - ln.s, dir(ln));}
-vec reflect(vec v, vec n) {return proj(v, n) * 2.0 - v;}
-point reflect(point p, line ln) {return ln.s + reflect(p - ln.s, dir(ln));}
+vec rotate(vec v, double a) { return v * polar(1.0, a); }
+double angle(vec a, vec b) { return arg(b / a); }
 
-vec rotate(vec v, double a) {return v * polar(1.0, a);}
-double angle(vec a, vec b) {return arg(b / a);}
 
 
 
@@ -50,7 +50,10 @@ bool onseg(point p, line ln) {
 	return dcmp(cross(p, ln.s, ln.t)) == 0 && dcmp(dot(p, ln.s, ln.t)) <= 0;
 }
 
-double distoline(point p, line ln) {return fabs(cross(p, ln.s, ln.t)) / len(ln);}
+double distoline(point p, line ln) { 
+	return fabs(cross(p, ln.s, ln.t)) / len(ln);
+}
+
 double distoseg(point p, line ln) {
 	if (dcmp(dot(ln.s, ln.t, p)) <= 0) return dis(p, ln.s);
 	if (dcmp(dot(ln.t, ln.s, p)) <= 0) return dis(p, ln.t);
