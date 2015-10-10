@@ -8,8 +8,8 @@ struct twoset {
 		if (vis[u]) return true;
 		vis[u] = true;
 		s[sz++] = u;
-		for (size_t i = 0; i < e[u].size(); ++i)
-			if (!dfs(e[u][i]))
+		for (int v: e[u])
+			if (!dfs(v))
 				return false;
 		return true;
 	}

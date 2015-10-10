@@ -16,8 +16,7 @@ bool vis[maxn];
 int n, k, root, sz, ans;
 
 void getroot(int u, int fa) {
-	s[u] = 1;
-	f[u] = 0;
+	s[u] = 1; f[u] = 0;
 	for (size_t i = 0; i < e[u].size(); ++i) {
 		int v = e[u][i].V;
 		if (v == fa || vis[v]) continue;
@@ -84,6 +83,7 @@ int main() {
 }
 
 
+// zoj 3901
 #include <bits/stdc++.h>
 #define rep(i, n) for (int i = 0; i < (n); ++i)
 #define For(i, s, t) for (int i = (s); i <= (t); ++i)
@@ -97,27 +97,21 @@ bool vis[maxn];
 Pii ql[maxn];
 int n, m, root, size, clk;
 
-struct BIT {
-	int f[maxn], cnt[maxn], sum[maxn];
-	int mx;
-	void init() {
-		cnt[0] = clk;
-		f[mx = 0] = 0;
+struct Seq {
+	int f[maxn], cnt[maxn], sum[maxn], mx;
+	void init(int v) {
+		cnt[mx = 0] = clk; f[0] = sum[0] = v;
 	}
 	void add(int u) {
-		if (cnt[u] != clk) cnt[u] = clk, f[u] = 0;
-		++f[u];
+		cnt[u] != clk ? cnt[u] = clk, f[u] = 1 : ++f[u];
 	}
 	int query(int u) {
 		return sum[min(u, mx)];
 	}
 	void getsum() {
 		sum[mx = 0] = f[0];
-		For(i, 1, n)
-			if (cnt[i] == clk)
-				sum[i] = sum[i - 1] + f[i], mx = i;
-			else
-				break;
+		while (cnt[mx + 1] == clk)
+			++mx, sum[mx] = sum[mx - 1] + f[mx];
 	}
 } len[3];
 
@@ -134,13 +128,12 @@ void init() {
 	scanf("%d%d", &n, &m);
 	For(i, 1, n) {
 		scanf("%d", w + i);
-		e[i].clear();
-		q[i].clear();
+		e[i].clear(); q[i].clear();
 	}
 	For(i, 1, n - 1) {
-		int u, v; scanf("%d%d", &u, &v);
-		e[u].push_back(v);
-		e[v].push_back(u);
+		int u, v; 
+		scanf("%d%d", &u, &v);
+		e[u].push_back(v); e[v].push_back(u);
 	}
 	For(i, 1, m) {
 		int u, d;
@@ -165,7 +158,9 @@ void calc(int u, int fa, int cnt, bool mor, bool les, bool eq) {
 	for (int v: e[u]) {
 		if (v == fa || vis[v]) continue;
 		calc(v, u, cnt + 1, 
-				mor && w[v] >= w[u], les && w[v] <= w[u], eq && w[v] == w[u]);
+				mor && w[v] >= w[u], 
+				les && w[v] <= w[u], 
+				eq && w[v] == w[u]);
 	}
 }
 
@@ -176,15 +171,16 @@ void dfs(int u, int fa, int cnt, bool les, bool mor, bool eq) {
 	for (int v: e[u]) {
 		if (v == fa || vis[v]) continue;
 		dfs(v, u, cnt + 1, 
-				les && w[v] <= w[u], mor && w[v] >= w[u], eq && w[v] == w[u]);
+				les && w[v] <= w[u], 
+				mor && w[v] >= w[u], 
+				eq && w[v] == w[u]);
 	}
 }
 
 void work(int u) {
 	vis[u] = true;
 	++clk;
-	rep(i, 3)
-		len[i].init(), len[i].add(0), len[i].getsum();
+	rep(i, 3) len[i].init(1);
 	for (int v: e[u]) {
 		if (vis[v]) continue;
 		calc(v, u, 1, w[v] >= w[u], w[v] <= w[u], w[v] == w[u]);
@@ -199,8 +195,7 @@ void work(int u) {
 	}
 
 	++clk;
-	rep(i, 3)
-		len[i].init(), len[i].getsum();
+	rep(i, 3) len[i].init(0);
 	reverse(e[u].begin(), e[u].end());
 	for (int v: e[u]) {
 		if (vis[v]) continue;

@@ -5,8 +5,7 @@ stack<int> S;
 void dfs(int u) {
 	pre[u] = low[u] = ++clk;
 	S.push(u);
-	for (size_t i = 0; i < e[u].size(); ++i) {
-		int v = e[u][i];
+	for (int v: e[u]) {
 		if (!pre[v]) {
 			dfs(v);
 			low[u] = min(low[u], low[v]);

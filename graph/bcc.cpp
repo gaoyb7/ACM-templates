@@ -4,8 +4,7 @@ stack<Edge> S;
 int dfs(int u, int fa) {
 	int lowu = pre[u] = ++clk;
 	int child = 0;
-	for (size_t i = 0; i < e[u].size(); ++i) {
-		int v = e[u][i];
+	for (int v: e[u]) {
 		Edge eg = (Edge){u, v};
 		if (!pre[v]) {
 			S.push(eg);

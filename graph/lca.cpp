@@ -5,24 +5,18 @@ void dfs(int u) {
 		int v = q[u][i].first, id = q[u][i].second;
 		if (vis[v]) ans[id] = find(v);
 	}
-	for (size_t i = 0; i < e[u].size(); ++i) {
-		int v = e[u][i];
-		if (vis[v]) continue;
-		dfs(v); fa[v] = u;
-	}
+	for (int v: e[u])
+		if (!vis[v])
+			dfs(v), fa[v] = u;
 }
 
 //LCA online
 void dfs(int u) {
 	for (int i = 0; i < DEP; ++i) 
 		fa[u][i + 1] = fa[fa[u][i]][i];
-	for (int i = 0; i < e[u].size(); ++i) {
-		int v = e[u][i];
-		if (v == fa[u][0]) continue;
-		fa[v][0] = u;
-		dep[v] = dep[u] + 1;
-		dfs(v);
-	}
+	for (int v: e[u])
+		if (v != fa[u][0])
+			fa[v][0] = u, dep[v] = dep[u] + 1, dfs(v);
 }
 
 int lca(int u, int v) {
