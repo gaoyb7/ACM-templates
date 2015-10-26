@@ -1,0 +1,7 @@
+syn on
+syn enable
+set nu ai ci si ts=4 sts=4 sw=4 ls=2 bs=2
+inoremap <buffer> {<cr> {<cr>}<esc>O
+nmap <F8> :vs %<.in <cr>
+nmap <F9> :!g++ % -std=c++11 -Wall -o %< <cr>
+nmap <F10> :!./%< < %<.in<cr>
