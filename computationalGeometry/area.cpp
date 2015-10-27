@@ -12,7 +12,7 @@ double crossarea(circle c, point *p, int n) {
 	for (int i = 0; i < n; ++i) {
 		point A = p[i] , B = p[(i + 1) % n], p1, p2;
 		line AB = line(A, B);
-		if (inter(c, AB, p1, p2) && (onseg(p1, AB) || onseg(p2, AB)))
+		if (inter(c, AB, p1, p2) && (onseg(p1, AB) || onseg(p2, AB)))	//proper_onseg
 			s += area(c, A, p1) + area(c, p1, p2) + area (c, p2, B) ;
 		else
 			s += area(c, A, B);
