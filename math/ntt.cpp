@@ -43,7 +43,7 @@ void ntt(LL a[], int n, int t) {
 	rader(a, n);
 	for (int h = 2; h <= n; h <<= 1) {
 		LL wn = pow_mod(g, (mod - 1) / h, mod);
-		if (t == -1) wn = pow_mod(wn, mod - 2);
+		if (t == -1) wn = pow_mod(wn, mod - 2, mod);
 		for (int j = 0; j < n; j += h) {
 			LL w = 1;
 			for (int k = j; k < j + (h >> 1); ++k) {
