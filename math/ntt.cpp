@@ -1,3 +1,32 @@
+const int N = 1 << 17;
+const int M = 3;
+const int MO = 1000000007;
+
+const int MOD[] = {998244353, 995622913, 786433}; 
+const int ROOT[] = {3, 5, 10};
+const LL M1 = 397550359381069386LL;
+const LL M2 = 596324591238590904LL;
+const LL MM = 993874950619660289LL;
+
+LL mul(LL x,LL y,LL z){
+	return (x * y - (LL)(x / (long double) z * y + 1e-3) * z + z) % z;
+}
+
+LL china(int x1, int x2){
+	return (mul(M1, x1, MM) + mul(M2, x2, MM)) % MM;
+}
+
+int merge(int a, int b, int c){
+	int iv = pow_mod(1LL * MOD[0] * MOD[1] % MOD[2], MOD[2] - 2, MOD[2]);
+	int ret;
+	LL m1 = china(a, b);
+	int m2 = c;
+	int z = 1LL * ((m2 - m1) % MOD[2]) * iv % MOD[2];
+	z = (z % MOD[2] + MOD[2]) % MOD[2];
+	ret = (1LL * z * MOD[0] % MO * MOD[1] + m1) % MO;
+	return (ret % MO + MO) % MO;
+}
+
 void rader(LL a[], int n) {
 	for (int i = 1, j = n >> 1; i < n - 1; ++i) {
 		if (i < j) swap(a[i], a[j]);
