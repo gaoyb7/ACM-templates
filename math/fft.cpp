@@ -2,7 +2,7 @@ void fft(cp *a, int n, int f) {
 	static cp tmp[maxn];
 	double arg = pi;
 	for (int k = n >> 1; k; k >>= 1, arg *= 0.5) {
-		cp wm = polar(1.0, f * arg), w(1, 0);
+		cp wm = cp(cos(arg), f * sin(arg)), w(1, 0);
 		for (int i = 0; i < n; i += k, w *= wm) {
 			int p = i << 1;
 			if (p >= n) p -= n;
