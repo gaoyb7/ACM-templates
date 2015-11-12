@@ -33,8 +33,7 @@ void fwt_and(LL a[], int l, int r) {
     fwt_and(a, mid + 1, r);
     int len = mid - l + 1;
     for (int i = l; i <= mid; ++i){
-        LL x1 = a[i];
-        LL x2 = a[i + len];
+        LL x1 = a[i], x2 = a[i + len];
         a[i] = (x1 + x2) % mod;
         a[i + len] = x2 % mod;
     }
