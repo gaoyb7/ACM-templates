@@ -15,3 +15,11 @@ void dfs2(int u, int p) {
 	for (int v: e[u])
 		if (v != fa[u] && v != son[u]) dfs2(v, v);
 }
+
+int lca(int u, int v) {
+	while (top[u] != top[v]) {
+		if (dep[top[u]] < dep[top[v]]) swap(u, v);
+		u = fa[top[u]];
+	}
+	return dep[u] < dep[v] ? u : v;
+}
