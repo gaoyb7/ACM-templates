@@ -45,7 +45,7 @@ void ifwt_and(LL a[], int l, int r) {
     int len = mid - l + 1;
     for (int i = l; i <= mid; ++i){
         LL x1 = a[i], x2 = a[i + len];
-        a[i] = (x1 - x2 + mod ) % mod;
+        a[i] = (x1 - x2 + mod) % mod;
         a[i + len] = x2 % mod;
     }
     ifwt_and(a, l, mid);
